@@ -8,10 +8,10 @@
  *
  * @param   {H.service.Platform} platform    A stub class to access HERE services
  */
-function geocode(platform) {
+function geocode(platform, query="200 S Mathilda Sunnyvale CA") {
   var geocoder = platform.getSearchService(),
       geocodingParameters = {
-        q: '200 S Mathilda Sunnyvale CA'
+        q: query
       };
 
   geocoder.geocode(
@@ -51,9 +51,9 @@ function onError(error) {
  */
 
 //Step 1: initialize communication with the platform
-// In your own code, replace variable window.apikey with your own apikey
+// In your own code, replace variable "upA5PjTZb-tempKey" with your own apikey
 var platform = new H.service.Platform({
-  apikey: window.apikey
+  apikey: "credentialApiKey"
 });
 var defaultLayers = platform.createDefaultLayers();
 
@@ -172,4 +172,14 @@ function addLocationsToMap(locations){
 }
 
 // Now use the map as required...
-geocode(platform);
+
+const address = document.getElementById("inputAddress")
+const geocodeBtn = document.getElementById("geocodeFindBtn")
+
+// geocode(platform);
+
+function findCode() {
+  geocode(platform, address.value)
+}
+
+geocodeBtn.addEventListener('click', findCode);
